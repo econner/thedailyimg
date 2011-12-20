@@ -1,12 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from core.models import Category
+from core.models import Category, Image
 
 from django.forms.widgets import CheckboxSelectMultiple
-
-# httplib used to check that image url is a valid resource
-import httplib
-from urlparse import urlparse
 
 
 class SubmissionForm(forms.Form):
@@ -22,18 +18,11 @@ class SubmissionForm(forms.Form):
         Check that the image url is valid.
         See: http://stackoverflow.com/questions/2486145/python-check-if-url-to-jpg-exists
         """
-        url_parts = urlparse(self.cleaned_data['image_url'])
-        try:
-            conn = httplib.HTTPConnection(url_parts[1])
-            conn.request('HEAD', url_parts[2])
-            response = conn.getresponse()
-            conn.close()
-        except:
-            raise forms.ValidationError("Please enter a valid image file url.")
+        if not Image.check_url(self.cleaned_data['image_url']):
+            raise forms.ValidationError("Please enter a valid image URL!")
         
-        if response.status != 200:
-            raise forms.ValidationError("Please enter a valid image file url.")
         return self.cleaned_data['image_url']
+        
     
 class RegistrationForm(forms.Form):
     first_name = forms.CharField()

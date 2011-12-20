@@ -1,5 +1,10 @@
 from django.db import models
+from django.db import IntegrityError
 from django.contrib.auth.models import User
+
+# httplib used to check that image url is a valid resource
+import httplib
+from urlparse import urlparse
 
 # 
 # Schema
@@ -36,6 +41,32 @@ class Image(models.Model):
         for cat_pk in categories:
             category = Category.objects.get(pk=cat_pk)
             self.categories.add(category)
+            
+    @staticmethod
+    def check_image_url(url):
+        """
+        Check that the image url is valid.
+        See: http://stackoverflow.com/questions/2486145/python-check-if-url-to-jpg-exists
+        """
+        url_parts = urlparse(url)
+        try:
+            conn = httplib.HTTPConnection(url_parts[1])
+            conn.request('HEAD', url_parts[2])
+            response = conn.getresponse()
+            conn.close()
+        except:
+            return False
+        
+        if response.status != 200:
+            return False
+
+        # check that response type is an image by ensuring
+        # the content type is an image
+        for header in response.getheaders():
+            if header[0] == 'content-type':
+                if 'image' in header[1]:
+                    return True
+        return False
     
     @staticmethod
     def create_image(url, caption):
@@ -43,8 +74,15 @@ class Image(models.Model):
         Create an image from a url if that image is not already
         found in the database.
         """
-        im = Image(url=url, caption=caption)
-        im.save()
+        # ensure url is a valid image file
+        if not Image.check_image_url(url):
+            return None
+        try:
+            im = Image(url=url, caption=caption)
+            im.save()
+        except IntegrityError:
+            # TODO integrity error raised if url is not unique
+            return None
         
 class VoteCount(models.Model):
     image = models.PositiveIntegerField()

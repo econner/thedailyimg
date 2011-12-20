@@ -66,6 +66,9 @@
 .image-container {
     float: left;
 }
+.image-list {
+    max-width: 500px;
+}
 
 /***************************
 * Image ratings

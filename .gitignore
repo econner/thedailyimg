@@ -1,0 +1,7 @@
+imagesdb
+*.pyc
+.epio-app
+epio.ini
+erl_crash.dump
+.DS_Store
+production_settings.py

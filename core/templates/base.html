@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+	<head>
+		<title>
+			{% block title %}
+				The Daily Image - Rank images.  See popular images.
+			{% endblock %}
+		</title>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
+
+		<script type="text/javascript" src="{{ STATIC_URL }}js/all.js?v0.0.1"></script>
+		<link type="text/css" href="{{ STATIC_URL }}css/reset.css?v0.0.1" rel="stylesheet"/>
+		<link type="text/css" href="{{ STATIC_URL }}css/all.css?v0.0.1" rel="stylesheet"/>
+	</head>
+
+	<body>
+		<div id="wrapper">
+		{% if messages %}
+		<ul class="messages">
+		    {% for message in messages %}
+		    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+		    {% endfor %}
+		</ul>
+		{% endif %}
+		<div id="header">
+			<div id="logo">
+				<a href="/">The Daily Image</a>
+			</div>
+			<ul class="nav">
+				{% if not user.is_authenticated %}
+				<li><a href="/register">Register</a></li>
+				<li><a href="/register">Login</a></li>
+				{% endif %}
+				<li><a href="/submit">Submit</a></li>
+			</ul>
+			{% if user.is_authenticated %}
+			<div class="user">
+				{{ user }}
+			</div>
+			{% endif %}
+			<div class="clearfix"></div>
+		</div>
+
+		<div id="content">
+		{% block content %}
+		
+		{% endblock %}
+		</div>
+		</div>
+	</body>
+
+
+</html>

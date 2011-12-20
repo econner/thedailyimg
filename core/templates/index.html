@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load vote_tags %}
+<div class="left-column">
+	{% if images %}
+	{% for im in images %}
+	<div class="image-container">
+		<div class="image-caption">
+			{{ im.caption }}
+		</div>
+		<img src="{{ im.url }}"/>
+	</div>
+	Rate this image in the following categories:
+	<div class="image-rating">
+		<input type="hidden" name="image-id" value="{{ im.pk }}" />
+		<ul>
+		{% for cat in im.categories.all %}
+			<li>
+				<a href="#" class="vote-arrow up-arrow" data-action="+1" data-id="{{ cat.pk }}">Up</a>
+				<span class="vote-count" data-id="{{ cat.pk }}">
+					{% vote_count im.pk cat.pk %}
+				</span>
+				<a href="#" class="vote-arrow down-arrow" data-action="-1" data-id="{{ cat.pk }}">Down</a>
+				{{ cat.title }}
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+	<div class="clearfix"></div>
+	{% endfor %}
+	{% else %}
+	<h2>No images to display!</h2>
+	{% endif %}
+	
+</div>
+<div class="right-column">
+	See images rated...<br/>
+	<ul>
+		{% for cat in categories %}
+			{% if category == cat %}
+			<li>{{ cat.title }}</li>
+			{% else %}
+			<li><a href="/list/{{ cat.pk }}">{{ cat.title }}</a></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+<div class="clearfix"></div>
+
+
+{% endblock %}

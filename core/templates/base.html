@@ -29,22 +29,19 @@
 			<div id="logo">
 				<a href="/">The Daily Image</a>
 			</div>
-			<ul class="nav">
+			<ul class="pills nav">
 				{% if not user.is_authenticated %}
 				<li><a href="/register">Register</a></li>
 				<li><a href="/register">Login</a></li>
-				{% endif %}
+				{% else %}
 				<li><a href="/submit">Submit</a></li>
+				{% endif %}
 			</ul>
-			{% if user.is_authenticated %}
-			<div class="user">
-				{{ user }}
-			</div>
-			{% endif %}
 			<div class="clearfix"></div>
 		</div>
 
 		<div id="content">
+			
 		{% block content %}
 		
 		{% endblock %}

@@ -142,6 +142,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'core',
     'south',
+    'celery',
     'djcelery'
 )
 
@@ -153,6 +154,7 @@ BROKER_PASSWORD = "guest"
 BROKER_VHOST = "/"
 
 # scheduled celery task
+CELERYD_OPTS="-B -l info"
 CELERY_RESULT_BACKEND = "amqp"
 CELERY_IMPORTS = (
      #"core.tasks"

@@ -18,7 +18,9 @@ from django.core.exceptions import ValidationError
 from django.contrib import messages
 
 from core.forms import RegistrationForm, SubmissionForm
-from core.models import Image, Vote, Category
+from core.models import Image, Vote, Category, VoteCount
+
+from core.tasks import scrapers
 
 from django.utils import simplejson
 def json_response(obj):
@@ -93,6 +95,10 @@ def login(request):
     if request.method == "POST":
         return authenticate(request, request.POST['email'], request.POST['password'])
     return redirect('/register')
+    
+def manual(request):
+    scrapers.delay()
+    return HttpResponse("Manually updating images...")
 
 #
 # Onsite interactions
@@ -101,7 +107,11 @@ def login(request):
 def list(request, category):
     category = get_object_or_404(Category, pk=int(category))
     
-    images = category.image_set.all().order_by("-created")
+    images = category.image_set.all()
+    
+    # TODO fold this ordering into the above query
+    images = sorted(images, key=lambda im: VoteCount.get_vote_count(image_id=im.pk, cat_id=category.pk), reverse=True)
+    
     categories = Category.objects.all()
     
     return render_to_response("index.html", {

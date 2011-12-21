@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="image-container">
 <form action='/submit' method='post'>
 	{% csrf_token %}
 	
@@ -11,5 +11,5 @@
 		<input type="submit" value="Submit" />
 	</div>
 </form>
-
+</div>
 {% endblock %}

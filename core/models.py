@@ -80,6 +80,7 @@ class Image(models.Model):
         try:
             im = Image(url=url, caption=caption)
             im.save()
+            return im
         except IntegrityError:
             # TODO integrity error raised if url is not unique
             return None
@@ -90,6 +91,15 @@ class VoteCount(models.Model):
     votes = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    
+    @staticmethod
+    def get_vote_count(image_id, cat_id):
+        try:
+            vc = VoteCount.objects.get(image=image_id, category=cat_id)
+        except VoteCount.DoesNotExist:
+            return 0
+        else:
+            return vc.votes
 
 class Vote(models.Model):
     user        =   models.ForeignKey(User)

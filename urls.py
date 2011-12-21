@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     (r'^submit/?$', "core.views.submit"),
     (r'^list/(?P<category>\d+)?$', "core.views.list"),
     
+    (r'^manual/?$', "core.views.manual"),
+    
     (r'^ajax/vote/?$', "core.views.vote"),
     
 )

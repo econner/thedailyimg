@@ -35,7 +35,7 @@ if getpass.getuser() == "eric":
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+            'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
             'NAME': 'images',                      # Or path to database file if using sqlite3.
             'USER': 'dailyimg',                      # Not used with sqlite3.
             'PASSWORD': 'GhnTmu583',                  # Not used with sqlite3.

@@ -5,7 +5,7 @@
 <div class="left-column">
 	{% if images %}
 	{% for im in images %}
-	<div class="image-container">
+	<div class="content-container">
 		<div class="image-caption">
 			{{ im.caption }}
 		</div>
@@ -16,12 +16,17 @@
 			<ul>
 			{% for cat in im.categories.all %}
 				<li>
-					<a href="#" class="vote-arrow up-arrow" data-action="+1" data-id="{{ cat.pk }}">Up</a>
-					<span class="vote-count" data-id="{{ cat.pk }}">
-						{% vote_count im.pk cat.pk %}
-					</span>
-					<a href="#" class="vote-arrow down-arrow" data-action="-1" data-id="{{ cat.pk }}">Down</a>
-					{{ cat.title }}
+					<div style="float:left">
+						<a href="#" class="vote-arrow up-arrow {% user_has_voted im.pk cat.pk 1 %}" data-action="+1" data-id="{{ cat.pk }}"></a>
+						<a href="#" class="vote-arrow down-arrow {% user_has_voted im.pk cat.pk -1 %}" data-action="-1" data-id="{{ cat.pk }}"></a>
+					</div>
+					<div style="float:left">
+						<span class="vote-count" data-id="{{ cat.pk }}">
+							{% vote_count im.pk cat.pk %}
+						</span>
+						{{ cat.title }}
+					</div>
+					<div class="clearfix"></div>
 				</li>
 			{% endfor %}
 			</ul>

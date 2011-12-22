@@ -146,20 +146,20 @@ INSTALLED_APPS = (
     'south',
     'celery',
     'djcelery',
-    'debug_toolbar'
+    'debug_toolbar',
+    'djkombu'
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
 
 # RabbitMQ settings
-BROKER_HOST = "localhost"
-BROKER_PORT = 5672
-BROKER_USER = "guest"
-BROKER_PASSWORD = "guest"
-BROKER_VHOST = "/"
+BROKER_TRANSPORT = "django"
+DATABASE_ENGINE = "sqlite3"
+DATABASE_NAME = "imagesdb"
+DATABASE_USER = ""
+DATABASE_PASSWORD = ""
 
 # scheduled celery task
-CELERY_RESULT_BACKEND = "amqp"
 CELERY_IMPORTS = (
      #"core.tasks"
 )
@@ -167,7 +167,7 @@ CELERY_AMQP_TASK_RESULT_EXPIRES = 60
 CELERYBEAT_SCHEDULE = {
     "runs-every-60-seconds": {
          "task": "core.tasks.scrapers",
-         "schedule": timedelta(seconds=10),
+         "schedule": timedelta(seconds=180),
          "args": ()
     },
 }

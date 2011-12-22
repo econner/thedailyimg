@@ -21,7 +21,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-if getuser.getpass() == "eric":
+if getpass.getuser() == "eric":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.

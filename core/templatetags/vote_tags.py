@@ -14,6 +14,9 @@ def vote_count(image, category):
         
 @register.simple_tag(takes_context=True)
 def user_has_voted(context, image, category, score):
+    if not context['user'].is_authenticated():
+        return ""
+    
     try:
         v = Vote.objects.get(user=context['user'], votecount__image=image, votecount__category=category)
         if v.score == int(score):

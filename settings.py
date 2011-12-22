@@ -194,3 +194,6 @@ LOGGING = {
         },
     }
 }
+
+if getpass.getuser() != "eric":
+    from production_settings import *

@@ -101,6 +101,7 @@ function Voter(options) {
                 dataType: 'JSON',
                 data: that.get_data(self),
                 success: function(result){
+                    console.info("HERE");
                     if(result.status == 'ok') {
                         vote_count.html(result.votes);
                         already_selected = self.hasClass('voted');
@@ -110,6 +111,10 @@ function Voter(options) {
                         }else{
                             self.addClass('voted');
                         }
+                    } else {
+                        // assume they're not logged in, forward to login url
+                        console.info("here");
+                        window.location.href = "/login"
                     }
                 }
             });

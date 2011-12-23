@@ -170,9 +170,13 @@ def index(request):
 #
 # Ajax views
 #
-@csrf_protect
-@login_required  
+@csrf_protect  
 def vote(request):
+    if not request.user.is_authenticated():
+        return json_response({
+            "status": "fail",
+            "why": "login"
+        })
     votes = Vote.submit_vote(request)
     return json_response({
         "status": "ok",

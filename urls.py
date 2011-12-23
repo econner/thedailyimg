@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     
     (r'^submit/?$', "core.views.submit"),
     (r'^list/(?P<category>\d+)?$', "core.views.list"),
+    url(r'^im/(?P<image_id>\d+)?$', "core.views.image", name="image"),
     
     (r'^manual/?$', "core.views.manual"),
     

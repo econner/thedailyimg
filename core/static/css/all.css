@@ -94,7 +94,7 @@ body {
     margin-left: 2px;
 }
 .image-list {
-    width: 350px;
+    width: 440px;
 }
 .image-caption {
     color: #404040;
@@ -109,6 +109,12 @@ body {
 }
 .image-rating ul {
     list-style: none outside none;
+}
+/****************************
+* Image Page
+*****************************/
+.image-single {
+    width: 600px;
 }
 
 /*****************************

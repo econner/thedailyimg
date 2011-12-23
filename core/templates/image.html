@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load vote_tags %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=247377191994551";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="left-column">
+	<div class="content-container" style="text-align: center;">
+		<img src="{{ im.url }}" class="image-single" />	
+		<div class="fb-comments" data-href="{% url image im.pk %}" data-num-posts="10" data-width="600"></div>
+	</div>
+	
+</div>
+<div class="right-column">
+	{% if user.is_authenticated %}
+	<div class="user">
+		{{ user.email }}
+	</div>
+	{% endif %}
+	See images rated...<br/>
+		{% for cat in categories %}
+			{% if category == cat %}
+			<li>{{ cat.title }}</li>
+			{% else %}
+			<li><a href="/list/{{ cat.pk }}">{{ cat.title }}</a></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+<div class="clearfix"></div>
+
+
+{% endblock %}

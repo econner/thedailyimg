@@ -9,10 +9,12 @@
 		<div class="image-caption">
 			{{ im.caption }}
 		</div>
-		<img src="{{ im.url }}" class="image-list"/>
+		<a href="/im/{{ im.pk }}">
+			<img src="{{ im.url }}" class="image-list"/>
+		</a>
 		<div class="image-rating">
 			<input type="hidden" name="image-id" value="{{ im.pk }}" />
-			Rate this image in the following categories:
+			Is this image?
 			<ul>
 			{% for cat in im.categories.all %}
 				<li>

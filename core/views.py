@@ -104,9 +104,17 @@ def manual(request):
 # Onsite interactions
 #
 
+def image(request, image_id):
+    im = get_object_or_404(Image, pk=int(image_id))
+    return render_to_response("image.html", {
+            'im': im
+        },
+        context_instance = RequestContext(request)
+    )
+
 def list(request, category):
     category = get_object_or_404(Category, pk=int(category))
-    
+   
     images = category.image_set.all()
     
     # TODO fold this ordering into the above query

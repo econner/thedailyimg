@@ -45,8 +45,7 @@ def parse_from_src(url, sourcename):
 @task
 def scrapers():
     to_add = []
-    #to_add.extend(reddit_pics())
-
+    to_add.extend(reddit_pics())
     to_add.extend(parse_from_src("http://www.someecards.com/combined-rss", 'someecards'))
     to_add.extend(parse_from_src("http://feeds.feedburner.com/ImgurGallery?format=rss", 'imgur'))
     

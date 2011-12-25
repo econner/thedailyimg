@@ -30,6 +30,7 @@ class Image(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField(Category)
+    source = models.CharField(max_length=1000, default="", blank=True, null=True)
     
     def apply_categories(self, categories):
         """
@@ -69,7 +70,7 @@ class Image(models.Model):
         return False
     
     @staticmethod
-    def create_image(url, caption):
+    def create_image(url, caption, source):
         """
         Create an image from a url if that image is not already
         found in the database.
@@ -78,7 +79,7 @@ class Image(models.Model):
         if not Image.check_image_url(url):
             return None
         try:
-            im = Image(url=url, caption=caption)
+            im = Image(url=url, caption=caption, source=source)
             im.save()
             return im
         except IntegrityError:

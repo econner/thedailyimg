@@ -39,6 +39,7 @@ def parse_from_src(url, sourcename):
         
         match = re.search(r'src=[\'"]?([^\'" >]+)', image_text)
         if match:
+            print "ADDING IMAGE FROM SOURCE: ", sourcename
             to_add.append((match.group(1), entry.title, sourcename))
     return to_add[:MAX_FROM_SOURCE]
 

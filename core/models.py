@@ -24,7 +24,7 @@ class Image(models.Model):
     """
     Object for each image in the system.
     """
-    caption = models.TextField()
+    caption = models.TextField(blank=True)
     user = models.ForeignKey(User, blank=True, null=True)
     url = models.URLField(unique=True)
     created = models.DateTimeField(auto_now_add=True)

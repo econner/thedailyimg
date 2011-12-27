@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 
+from django.core.paginator import Paginator
+
 # validating email addresses
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -21,6 +23,8 @@ from core.forms import RegistrationForm, SubmissionForm
 from core.models import Image, Vote, Category, VoteCount
 
 from core.tasks import scrapers
+
+IMAGES_PER_PAGE = 15
 
 from django.utils import simplejson
 def json_response(obj):
@@ -155,13 +159,41 @@ def submit(request):
         },
         context_instance = RequestContext(request)
     )
+    
+def page(request):
+    """
+    Ajax view in order to enable infinite scroll on images
+    view.
+    """
+    p = Paginator(Image.objects.order_by("-created"), IMAGES_PER_PAGE)
+    page_num = request.GET['page']
+    page = p.page(page_num)
+    
+    images = []
+    for im in page.object_list:
+        images.append({
+            "pk": im.pk,
+            "caption": im.caption,
+            "url": im.url,
+            "source": im.source
+        })
+    
+    return json_response({
+        "status": "ok",
+        "images": images,
+        "has_more_pages": page.has_next()
+    })
 
 @csrf_protect
 def index(request):
-    images = Image.objects.order_by("-created")
+    p = Paginator(Image.objects.order_by("-created"), IMAGES_PER_PAGE)
+    
+    # index will always show first page of images
+    page = p.page(1)
+    
     categories = Category.objects.all()
     return render_to_response("index.html", {
-            'images': images,
+            'page': page,
             'categories': categories
         },
         context_instance = RequestContext(request)

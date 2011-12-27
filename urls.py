@@ -11,17 +11,20 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     
     (r'^$', "core.views.index"),
+    
+    
     (r'^login/?$', "core.views.login"),
     (r'^logout/?$', "core.views.logout"),
     (r'^register/?$', "core.views.register"),
     
     (r'^submit/?$', "core.views.submit"),
-    (r'^list/(?P<category>\d+)?$', "core.views.list"),
-    url(r'^im/(?P<image_id>\d+)?$', "core.views.image", name="image"),
+    (r'^list/(?P<category>\d+)/?$', "core.views.list"),
+    url(r'^im/(?P<image_id>\d+)/?$', "core.views.image", name="image"),
     
     (r'^manual/?$', "core.views.manual"),
     
     (r'^ajax/vote/?$', "core.views.vote"),
+    (r'^ajax/page/?$', "core.views.page"),
     
 )
 if settings.DEBUG:

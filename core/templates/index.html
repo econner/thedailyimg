@@ -2,9 +2,26 @@
 
 {% block content %}
 {% load vote_tags %}
+<script type="text/x-jquery-tmpl" id="listing-template">
+<div class="content-container">
+	<div class="image-caption">
+		${caption}
+	</div>
+	<a href="/im/${pk}">
+		<img src="${url}" class="image-list"/>
+	</a>
+	<div class="image-rating">
+		<input type="hidden" name="image-id" value="${pk}" />
+		Is this image?
+		<ul>
+		</ul>
+	</div>
+	<div class="clearfix"></div>
+</div>
+</script>
 <div class="left-column">
-	{% if images %}
-	{% for im in images %}
+	{% if page.object_list %}
+	{% for im in page.object_list %}
 	<div class="content-container">
 		<div class="image-caption">
 			{{ im.caption }}
@@ -35,7 +52,6 @@
 		</div>
 		<div class="clearfix"></div>
 	</div>
-	
 	{% endfor %}
 	{% else %}
 	<h2>No images to display!</h2>

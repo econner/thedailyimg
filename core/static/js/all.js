@@ -47,6 +47,44 @@ $(document).ajaxSend(function(event, xhr, settings) {
 function Listings() {
     var that = {};
     var voters = [];
+    var cur_page = 1;
+    var loading_page = false;
+    var on_last_page = false;
+    
+    function get_data() {
+        return {
+            page: cur_page
+        }
+    }
+    
+    function append_listings(images) {        
+        $(images).each(function() {
+            var data = $("#listing-template").tmpl(this);
+            data.appendTo(".left-column");
+        });
+    }
+    
+    function retrieve_images() {
+        if(!loading_page && !on_last_page) {
+            cur_page++;
+            loading_page = true;
+            
+            $.ajax({
+                type: 'GET',
+                url: '/ajax/page',
+                dataType: 'JSON',
+                data: get_data(),
+                success: function(result){
+                    loading_page = false;
+                    append_listings(result.images);
+                    
+                    console.info(result);
+                    
+                    if(!result.has_more_pages) on_last_page = true;
+                }
+            });
+        }
+    }
     
     that.setup = function() {
         $('.image-rating').each(function() {
@@ -55,6 +93,20 @@ function Listings() {
                 "container": self
             });
             voters.push(cur_voter);
+        });
+        
+        // setup infinite scroll
+        that.see_more();
+    }
+    
+    that.see_more = function() {
+        var SCROLL_LEEWAY = 500;
+        $(window).scroll(function(){
+            var diff = $(document).height() - $(window).scrollTop() - $(window).height();
+            
+            if(diff < SCROLL_LEEWAY){
+                retrieve_images();
+            }
         });
     }
     

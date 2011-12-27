@@ -1,0 +1,37 @@
+[
+  {
+    "model": "core.Category",
+    "pk": 1,
+    "fields": {
+		"title": "Funny"
+    }
+  },
+  {
+    "model": "core.Category",
+    "pk": 2,
+    "fields": {
+		"title": "Interesting"
+    }
+  },
+  {
+    "model": "core.Category",
+    "pk": 3,
+    "fields": {
+		"title": "Shocking"
+    }
+  },
+  {
+    "model": "core.Category",
+    "pk": 4,
+    "fields": {
+		"title": "Inspiring"
+    }
+  },
+  {
+    "model": "core.Category",
+    "pk": 5,
+    "fields": {
+		"title": "Cute"
+    }
+  }
+]

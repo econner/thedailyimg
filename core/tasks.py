@@ -8,7 +8,7 @@ import random
 MAX_FROM_SOURCE = 25
 
 def get_categories():
-    cat_titles = ['Funny', 'Interesting', 'Inspiring', 'Powerful']
+    cat_titles = ['Funny', 'Interesting', 'Inspiring', 'Shocking', 'Cute']
     cat_ids = []
     for cat_title in cat_titles:
         c = Category.objects.get(title=cat_title)
@@ -39,7 +39,6 @@ def parse_from_src(url, sourcename):
         
         match = re.search(r'src=[\'"]?([^\'" >]+)', image_text)
         if match:
-            print "ADDING IMAGE FROM SOURCE: ", sourcename
             to_add.append((match.group(1), entry.title, sourcename))
     return to_add[:MAX_FROM_SOURCE]
 

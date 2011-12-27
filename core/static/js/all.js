@@ -60,7 +60,18 @@ function Listings() {
     function append_listings(images) {        
         $(images).each(function() {
             var data = $("#listing-template").tmpl(this);
-            data.appendTo(".left-column");
+            for(var idx in this.categories) {
+                var category = this.categories[idx];
+                console.info(category);
+                var cat_vote = $("#vote-template").tmpl(category);
+                $(".voter", data).append(cat_vote);
+            }
+            
+            var cur_voter = Voter({
+                "container": $(".image-rating", data)
+            });
+            voters.push(cur_voter);
+            data.appendTo("#objects-container");
         });
     }
     
@@ -69,6 +80,7 @@ function Listings() {
             cur_page++;
             loading_page = true;
             
+            $("#aux-info").html("Loading...");
             $.ajax({
                 type: 'GET',
                 url: '/ajax/page',
@@ -77,8 +89,7 @@ function Listings() {
                 success: function(result){
                     loading_page = false;
                     append_listings(result.images);
-                    
-                    console.info(result);
+                     $("#aux-info").html("");
                     
                     if(!result.has_more_pages) on_last_page = true;
                 }
@@ -153,7 +164,6 @@ function Voter(options) {
                 dataType: 'JSON',
                 data: that.get_data(self),
                 success: function(result){
-                    console.info("HERE");
                     if(result.status == 'ok') {
                         vote_count.html(result.votes);
                         already_selected = self.hasClass('voted');

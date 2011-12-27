@@ -171,11 +171,28 @@ def page(request):
     
     images = []
     for im in page.object_list:
+        categories = []
+        for cat in im.categories.all():
+            
+            has_voted_up = has_voted_down = ""
+            if request.user.is_authenticated():
+                has_voted_up = Vote.check_user_vote_type(user=request.user, image=im.pk, category=cat.pk, score=1)
+                has_voted_down = Vote.check_user_vote_type(user=request.user, image=im.pk, category=cat.pk, score=-1)
+            
+            categories.append({
+                "pk": cat.pk,
+                "title": cat.title,
+                "has_voted_up": has_voted_up,
+                "has_voted_down": has_voted_down,
+                "votes": VoteCount.get_vote_count(image_id=im.pk, cat_id=cat.pk)
+            })
+            
         images.append({
             "pk": im.pk,
             "caption": im.caption,
             "url": im.url,
-            "source": im.source
+            "source": im.source,
+            "categories": categories
         })
     
     return json_response({

@@ -13,13 +13,29 @@
 	<div class="image-rating">
 		<input type="hidden" name="image-id" value="${pk}" />
 		Is this image?
-		<ul>
+		<ul class="voter">
 		</ul>
 	</div>
 	<div class="clearfix"></div>
 </div>
 </script>
+<script type="text/x-jquery-tmpl" id="vote-template">
+<li>
+	<div style="float:left">
+		<a href="#" class="vote-arrow up-arrow ${has_voted_up}" data-action="+1" data-id="${pk}"></a>
+		<a href="#" class="vote-arrow down-arrow ${has_voted_down}" data-action="-1" data-id="${pk}"></a>
+	</div>
+	<div style="float:left">
+		<span class="vote-count" data-id="${pk}">
+			${votes}
+		</span>
+		${title}
+	</div>
+	<div class="clearfix"></div>
+</li>
+</script>
 <div class="left-column">
+	<div id="objects-container">
 	{% if page.object_list %}
 	{% for im in page.object_list %}
 	<div class="content-container">
@@ -56,7 +72,8 @@
 	{% else %}
 	<h2>No images to display!</h2>
 	{% endif %}
-	
+	</div>
+	<div id="aux-info">TEST TEST</div>
 </div>
 <div class="right-column">
 	{% if user.is_authenticated %}

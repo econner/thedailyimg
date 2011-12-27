@@ -108,6 +108,16 @@ class Vote(models.Model):
     score       =   models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    
+    @staticmethod
+    def check_user_vote_type(user, image, category, score):
+        try:
+            v = Vote.objects.get(user=user, votecount__image=image, votecount__category=category)
+            if v.score == int(score):
+                return "voted"
+        except Vote.DoesNotExist:
+            pass
+        return ""
 
     def update_vote_count(self, score_change):
         self.votecount.votes += score_change

@@ -75,6 +75,7 @@ function Listings() {
         });
     }
     
+    
     function retrieve_images() {
         if(!loading_page && !on_last_page) {
             cur_page++;

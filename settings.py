@@ -116,7 +116,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
-
 ROOT_URLCONF = 'thedailyimg.urls'
 
 TEMPLATE_CONTEXT_PROCESSORS = (

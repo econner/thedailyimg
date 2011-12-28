@@ -1,7 +1,10 @@
 $(document).ready(function(){
     var path = window.location.pathname;
     
-    var listings = Listings();
+    if(path == "/" || path.indexOf("/list/") != -1) {
+        var listings = Listings();
+    }
+    
 });
 
 /*
@@ -44,16 +47,19 @@ $(document).ajaxSend(function(event, xhr, settings) {
     }
 });
 
-function Listings() {
+function Listings(options) {
     var that = {};
     var voters = [];
     var cur_page = 1;
     var loading_page = false;
     var on_last_page = false;
     
+    var category = 0;
+    
     function get_data() {
         return {
-            page: cur_page
+            page: cur_page,
+            category: category
         }
     }
     
@@ -106,6 +112,8 @@ function Listings() {
             });
             voters.push(cur_voter);
         });
+        
+        category = $("#viewing-category").val();
         
         // setup infinite scroll
         that.see_more();

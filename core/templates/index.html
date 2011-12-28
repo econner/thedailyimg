@@ -35,6 +35,8 @@
 </li>
 </script>
 <div class="left-column">
+	<input type="hidden" id="viewing-category" name="image-id" value="{{ category.pk }}" />
+	
 	<div id="objects-container">
 	{% if page.object_list %}
 	{% for im in page.object_list %}

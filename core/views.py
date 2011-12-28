@@ -120,14 +120,17 @@ def list(request, category):
     category = get_object_or_404(Category, pk=int(category))
    
     images = category.image_set.all()
-    
     # TODO fold this ordering into the above query
     images = sorted(images, key=lambda im: VoteCount.get_vote_count(image_id=im.pk, cat_id=category.pk), reverse=True)
+    p = Paginator(images, IMAGES_PER_PAGE)
+
+    # index will always show first page of images
+    page = p.page(1)
     
     categories = Category.objects.all()
     
     return render_to_response("index.html", {
-            'images': images,
+            'page': page,
             'categories': categories,
             'category': category
         },
@@ -165,7 +168,16 @@ def page(request):
     Ajax view in order to enable infinite scroll on images
     view.
     """
-    p = Paginator(Image.objects.order_by("-created"), IMAGES_PER_PAGE)
+    if 'category' in request.GET and request.GET['category']:
+        category = get_object_or_404(Category, pk=int(request.GET['category']))
+
+        images = category.image_set.all()
+        # TODO fold this ordering into the above query
+        images = sorted(images, key=lambda im: VoteCount.get_vote_count(image_id=im.pk, cat_id=category.pk), reverse=True)
+        p = Paginator(images, IMAGES_PER_PAGE)
+    else:
+        p = Paginator(Image.objects.order_by("-created"), IMAGES_PER_PAGE)
+    
     page_num = request.GET['page']
     page = p.page(page_num)
     

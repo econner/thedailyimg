@@ -152,7 +152,7 @@ INSTALLED_APPS = (
 
 INTERNAL_IPS = ('127.0.0.1',)
 
-# RabbitMQ settings
+# Broker settings
 BROKER_TRANSPORT = "django"
 DATABASE_ENGINE = "sqlite3"
 DATABASE_NAME = "imagesdb"
@@ -167,7 +167,7 @@ CELERY_AMQP_TASK_RESULT_EXPIRES = 60
 CELERYBEAT_SCHEDULE = {
     "runs-every-60-seconds": {
          "task": "core.tasks.scrapers",
-         "schedule": timedelta(seconds=180),
+         "schedule": timedelta(seconds=1000),
          "args": ()
     },
 }

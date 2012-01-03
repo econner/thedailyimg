@@ -144,7 +144,7 @@ def submit(request):
         if form.is_valid():
             caption = form.cleaned_data['caption']
             url = form.cleaned_data['image_url']
-            categories = form.cleaned_data['categories']
+            categories = [(category.pk, category.title) for category in Category.objects.all()]
             
             im = Image(caption=caption, 
                        url=url,

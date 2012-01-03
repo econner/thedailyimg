@@ -6,12 +6,8 @@ from django.forms.widgets import CheckboxSelectMultiple
 
 
 class SubmissionForm(forms.Form):
-    # TODO this needs to be dynamic, right now you have to restart the server to get the choices
-    CATEGORY_CHOICES = [(category.pk, category.title) for category in Category.objects.all()]
-    
     caption = forms.CharField()
     image_url = forms.URLField()
-    categories = forms.MultipleChoiceField(widget=CheckboxSelectMultiple, choices=CATEGORY_CHOICES)
     
     def clean_image_url(self):
         """

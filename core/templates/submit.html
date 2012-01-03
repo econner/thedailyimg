@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="image-container">
-<form action='/submit' method='post'>
-	{% csrf_token %}
+<div class="content-container centered">
+	<div class="image-container">
+	<form action='/submit' method='post'>
+		{% csrf_token %}
 	
-	{{ form.as_p }}
+		{{ form.as_p }}
 
-	<div class="create-submit">
-		<input type="submit" value="Submit" />
+		<p>
+			<label for="submit"></label>
+			<input type="submit" value="Submit" class="btn primary"/>
+		</p>
+	</form>
 	</div>
-</form>
 </div>
 {% endblock %}

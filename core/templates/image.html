@@ -12,6 +12,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 <div class="left-column">
 	<div class="content-container" style="text-align: center;">
+		<div class="image-caption single">{{ im.caption }}</div>
 		<img src="{{ im.url }}" class="image-single" />	
 		<div class="fb-comments" data-href="{% url image im.pk %}" data-num-posts="10" data-width="600"></div>
 	</div>
@@ -23,15 +24,6 @@
 		{{ user.email }}
 	</div>
 	{% endif %}
-	See images rated...<br/>
-		{% for cat in categories %}
-			{% if category == cat %}
-			<li>{{ cat.title }}</li>
-			{% else %}
-			<li><a href="/list/{{ cat.pk }}">{{ cat.title }}</a></li>
-			{% endif %}
-		{% endfor %}
-	</ul>
 </div>
 <div class="clearfix"></div>
 

@@ -12,7 +12,6 @@ urlpatterns = patterns('',
     
     (r'^$', "core.views.index"),
     
-    
     (r'^login/?$', "core.views.login"),
     (r'^logout/?$', "core.views.logout"),
     (r'^register/?$', "core.views.register"),
@@ -26,7 +25,9 @@ urlpatterns = patterns('',
     (r'^ajax/vote/?$', "core.views.vote"),
     (r'^ajax/page/?$', "core.views.page"),
     
+    (r'^facebook/', include("facebook.urls")),
 )
+
 if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^(?P<path>.*)$', 'django.views.static.serve',

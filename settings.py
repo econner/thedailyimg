@@ -77,6 +77,7 @@ STATIC_URL = '/static/'
 
 # URL to redirect user to when login is required
 LOGIN_URL = '/register'
+LOGIN_REDIRECT_URL = '/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
@@ -147,7 +148,19 @@ INSTALLED_APPS = (
     'celery',
     'djcelery',
     'debug_toolbar',
-    'djkombu'
+    'djkombu',
+    'facebook'
+)
+
+FACEBOOK_APP_ID = "247377191994551"
+FACEBOOK_APP_SECRET = "c6dbeaff1badc94ccdd864c4890dab04"
+FACEBOOK_SCOPE = 'email,publish_stream'
+
+AUTH_PROFILE_MODULE = 'facebook.FacebookProfile'
+
+AUTHENTICATION_BACKENDS = (
+    'facebook.backend.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)

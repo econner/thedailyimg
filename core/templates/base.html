@@ -13,7 +13,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
 
 		<script type="text/javascript" src="{{ STATIC_URL }}js/all.js?v0.0.1"></script>
-		<link type="text/css" href="{{ STATIC_URL }}css/reset.css?v0.0.1" rel="stylesheet"/>
+		<link type="text/css" href="{{ STATIC_URL }}css/bootstrap.css?v0.0.1" rel="stylesheet"/>
 		<link type="text/css" href="{{ STATIC_URL }}css/all.css?v0.0.1" rel="stylesheet"/>
 	</head>
 
@@ -36,6 +36,7 @@
 				<li><a href="/register">Login</a></li>
 				{% else %}
 				<li><a href="/submit">Submit</a></li>
+				<li><a href="/logout">Logout</a></li>
 				{% endif %}
 			</ul>
 			<div class="clearfix"></div>

@@ -57,7 +57,7 @@
 						<a href="#" class="vote-arrow up-arrow {% user_has_voted im.pk cat.pk 1 %}" data-action="+1" data-id="{{ cat.pk }}"></a>
 						<a href="#" class="vote-arrow down-arrow {% user_has_voted im.pk cat.pk -1 %}" data-action="-1" data-id="{{ cat.pk }}"></a>
 					</div>
-					<div style="float:left">
+					<div class="rating-help-text">
 						<span class="vote-count" data-id="{{ cat.pk }}">
 							{% vote_count im.pk cat.pk %}
 						</span>
@@ -80,16 +80,28 @@
 <div class="right-column">
 	{% if user.is_authenticated %}
 	<div class="user">
+		<div class="user-img">
+		{% if user.get_profile %}
+			<img src="https://graph.facebook.com/{{ user.get_profile.facebook_id }}/picture" />
+		{% else %}
+			<img src="/static/images/Homer_Simpson.jpg" style="width: 50px;" />
+		{% endif %}
+		</div>
+		<div class="user-info">
 		{{ user.email }}
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	{% else %}
+	<div class="alert-message warning">
+	  <p><strong>Welcome to DailySquint!</strong> Here's a random collection of the coolest images on
+		the interwebs.  I made this website for the fun of it and I hope you enjoy it.  Sign-up's are up top.  Got feedback?
+		<a href="mailto:econner@stanford.edu">econner@stanford.edu</a></p>
 	</div>
 	{% endif %}
-	See images rated...<br/>
+	<ul class="category-nav">
 		{% for cat in categories %}
-			{% if category == cat %}
-			<li>{{ cat.title }}</li>
-			{% else %}
-			<li><a href="/list/{{ cat.pk }}">{{ cat.title }}</a></li>
-			{% endif %}
+			<li><a href="/list/{{ cat.pk }}" class="category-tab {% if category == cat %}active{% endif %}">{{ cat.title }}</a></li>
 		{% endfor %}
 	</ul>
 </div>

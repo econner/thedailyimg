@@ -21,7 +21,18 @@
 <div class="right-column">
 	{% if user.is_authenticated %}
 	<div class="user">
+		{% if user.get_profile %}
+			<img src="https://graph.facebook.com/{{ user.get_profile.facebook_id }}/picture" />
+		{% else %}
+			<img src="/static/images/Homer_Simpson.jpg" style="width: 50px;" />
+		{% endif %}
 		{{ user.email }}
+	</div>
+	{% else %}
+	<div class="alert-message warning">
+	  <p><strong>Welcome to DailySquint!</strong> Here's a random collection of the coolest images on
+		the interwebs.  I made this website for the fun of it and I hope you enjoy it.  Sign-up's are up top.  Got feedback?
+		<a href="mailto:econner@stanford.edu">econner@stanford.edu</a></p>
 	</div>
 	{% endif %}
 </div>

@@ -68,7 +68,6 @@ function Listings(options) {
             var data = $("#listing-template").tmpl(this);
             for(var idx in this.categories) {
                 var category = this.categories[idx];
-                console.info(category);
                 var cat_vote = $("#vote-template").tmpl(category);
                 $(".voter", data).append(cat_vote);
             }
@@ -158,11 +157,11 @@ function Voter(options) {
     }
     
     that.deselect_votes = function(arrow){
-        $('.vote-arrow[data-id="'+arrow.attr('data-id')+'"]', container).removeClass('voted');
+        $('.vote-button[data-id="'+arrow.attr('data-id')+'"]', container).removeClass('voted');
     }
     
     that.setup = function() {
-        $('.vote-arrow', container).bind("click", function(e){
+        $('.vote-button', container).bind("click", function(e){
             var self = $(this);
             e.preventDefault();
             

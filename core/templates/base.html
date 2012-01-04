@@ -4,7 +4,7 @@
 	<head>
 		<title>
 			{% block title %}
-				The Daily Image - Rank images.  See popular images.
+				Morning Reel - Rank images.  See popular images.
 			{% endblock %}
 		</title>
 
@@ -28,7 +28,9 @@
 		{% endif %}
 		<div id="header">
 			<div id="logo">
-				<a href="/">DailySquint</a>
+				<img src="/static/images/reel.png"/>
+				<a href="/">MorningReel</a>
+				<div class="clearfix"></div>
 			</div>
 			<ul class="pills nav">
 				{% if not user.is_authenticated %}

@@ -21,15 +21,8 @@
 </script>
 <script type="text/x-jquery-tmpl" id="vote-template">
 <li>
-	<div style="float:left">
-		<a href="#" class="vote-arrow up-arrow ${has_voted_up}" data-action="+1" data-id="${pk}"></a>
-		<a href="#" class="vote-arrow down-arrow ${has_voted_down}" data-action="-1" data-id="${pk}"></a>
-	</div>
-	<div style="float:left">
-		<span class="vote-count" data-id="${pk}">
-			${votes}
-		</span>
-		${title}
+	<div class="rating-help-text">
+		<button class="btn vote-button ${has_voted_up}" data-action="+1" data-id="${pk}">${title}</button>
 	</div>
 	<div class="clearfix"></div>
 </li>
@@ -49,19 +42,13 @@
 		</a>
 		<div class="image-rating">
 			<input type="hidden" name="image-id" value="{{ im.pk }}" />
-			Is this image?
+			Whaddya think?
 			<ul>
 			{% for cat in im.categories.all %}
 				<li>
-					<div style="float:left">
-						<a href="#" class="vote-arrow up-arrow {% user_has_voted im.pk cat.pk 1 %}" data-action="+1" data-id="{{ cat.pk }}"></a>
-						<a href="#" class="vote-arrow down-arrow {% user_has_voted im.pk cat.pk -1 %}" data-action="-1" data-id="{{ cat.pk }}"></a>
-					</div>
 					<div class="rating-help-text">
-						<span class="vote-count" data-id="{{ cat.pk }}">
-							{% vote_count im.pk cat.pk %}
-						</span>
-						{{ cat.title }}
+						<button class="btn vote-button {% user_has_voted im.pk cat.pk 1 %}" data-action="+1" data-id="{{ cat.pk }}">{{ cat.title }}</button>
+						
 					</div>
 					<div class="clearfix"></div>
 				</li>
@@ -94,7 +81,7 @@
 	</div>
 	{% else %}
 	<div class="alert-message warning">
-	  <p><strong>Welcome to DailySquint!</strong> Here's a random collection of the coolest images on
+	  <p><strong>Welcome to MorningReel!</strong> Here's a random collection of the coolest images on
 		the interwebs.  I made this website for the fun of it and I hope you enjoy it.  Sign-up's are up top.  Got feedback?
 		<a href="mailto:econner@stanford.edu">econner@stanford.edu</a></p>
 	</div>

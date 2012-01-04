@@ -23,17 +23,27 @@
     margin-top: 35px;
     position: relative;
 }
+#logo img {
+    float: left;
+    display: block;
+}
 #logo a {
-    color: #666;
+    float: left;
+    display: block;
+    margin-left: 5px;
+    line-height: 30px;
+    height: 30px;
+    color: #000;
     font-size: 20pt;
     font-weight: bold;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    text-shadow: 0 -1px 0 #fff;
     text-decoration: none;
 }
 #logo {
     float: left;
     line-height: 50px;
     margin-left: 20px;
+    margin-top: 11px;
 }
 .nav {
     float: right;
@@ -153,6 +163,15 @@ body {
 /*
 * Arrows
 */
+.vote-button {
+    width: 105px;
+}
+.vote-button.voted {
+    background: #00438a;
+    background-position: 0 -15px;
+    color: #fff;
+    text-decoration: none;
+}
 .vote-arrow {
     background-image: url(/static/images/sprites.png);
     height: 13px;

@@ -3,35 +3,35 @@
     "model": "core.Category",
     "pk": 1,
     "fields": {
-		"title": "Funny"
+		"title": "Hahaha"
     }
   },
   {
     "model": "core.Category",
     "pk": 2,
     "fields": {
-		"title": "Interesting"
+		"title": "Interesting..."
     }
   },
   {
     "model": "core.Category",
     "pk": 3,
     "fields": {
-		"title": "Shocking"
+		"title": "What the...?"
     }
   },
   {
     "model": "core.Category",
     "pk": 4,
     "fields": {
-		"title": "Inspiring"
+		"title": "Wow!"
     }
   },
   {
     "model": "core.Category",
     "pk": 5,
     "fields": {
-		"title": "Cute"
+		"title": "Aww"
     }
   }
 ]

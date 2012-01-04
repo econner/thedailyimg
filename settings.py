@@ -180,7 +180,7 @@ CELERY_AMQP_TASK_RESULT_EXPIRES = 60
 CELERYBEAT_SCHEDULE = {
     "runs-every-60-seconds": {
          "task": "core.tasks.scrapers",
-         "schedule": timedelta(seconds=1000),
+         "schedule": timedelta(seconds=300),
          "args": ()
     },
 }

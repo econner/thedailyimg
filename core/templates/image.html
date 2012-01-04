@@ -14,7 +14,7 @@
 	<div class="content-container" style="text-align: center;">
 		<div class="image-caption single">{{ im.caption }}</div>
 		<img src="{{ im.url }}" class="image-single" />	
-		<div class="fb-comments" data-href="http://www.morningreel.com/{% url image im.pk %}" data-num-posts="10" data-width="600"></div>
+		<div class="fb-comments" data-href="http://www.morningreel.com{% url image im.pk %}" data-num-posts="10" data-width="600"></div>
 	</div>
 	
 </div>

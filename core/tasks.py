@@ -8,11 +8,7 @@ import random
 MAX_FROM_SOURCE = 25
 
 def get_categories():
-    cat_titles = ['Funny', 'Interesting', 'Inspiring', 'Shocking', 'Cute']
-    cat_ids = []
-    for cat_title in cat_titles:
-        c = Category.objects.get(title=cat_title)
-        cat_ids.append(c.pk)
+    cat_ids = [category.pk for category in Category.objects.all()]
     return cat_ids
 
 def reddit_pics():

@@ -14,7 +14,7 @@ class SubmissionForm(forms.Form):
         Check that the image url is valid.
         See: http://stackoverflow.com/questions/2486145/python-check-if-url-to-jpg-exists
         """
-        if not Image.check_url(self.cleaned_data['image_url']):
+        if not Image.check_image_url(self.cleaned_data['image_url']):
             raise forms.ValidationError("Please enter a valid image URL!")
         
         return self.cleaned_data['image_url']

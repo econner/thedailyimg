@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator
 
+from django.db import IntegrityError
+
 # validating email addresses
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -144,12 +146,17 @@ def submit(request):
         if form.is_valid():
             caption = form.cleaned_data['caption']
             url = form.cleaned_data['image_url']
-            categories = [(category.pk, category.title) for category in Category.objects.all()]
+            categories = [category.pk for category in Category.objects.all()]
             
             im = Image(caption=caption, 
                        url=url,
                        user=request.user)
-            im.save() # need to save before adding many to many relationships
+            try:
+                im.save() # need to save before adding many to many relationships
+            except IntegrityError:
+                # assume url column not unique..image already added
+                im = Image.objects.get(url=url)
+                return redirect('/im/%d' % im.pk)
             im.apply_categories(categories)
             
             messages.success(request, 'Image submitted successfully!')
